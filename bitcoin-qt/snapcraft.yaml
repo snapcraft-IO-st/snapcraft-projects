@@ -24,6 +24,8 @@ parts:
     build: |
       cd build_unix
       ../dist/configure --disable-shared --enable-cxx --with-pic && make && make install DESTDIR=$SNAPCRAFT_PART_INSTALL
+    prime:
+      - -* # we don't need the compiled files in the final snap
   bitcoin-qt:
     after: [libdb4.8, desktop-qt4]
     build-packages: [libdb4.8]
