@@ -18,12 +18,15 @@ parts:
     source: http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz
 #    source-checksum: sha256/12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef
     source-subdir: dist
-    stage:
-      - usr/local/BerkeleyDB.4.8/lib/*
-      - usr/local/BerkeleyDB.4.8/include/*
+    stage: # we need to copy files to the staging area so that bitcoin can use them when compiling
+      - include/*
+      - lib/*
     build: |
       cd build_unix
-      ../dist/configure --disable-shared --enable-cxx --with-pic && make && make install DESTDIR=$SNAPCRAFT_PART_INSTALL
+      ../dist/configure --disable-shared --enable-cxx --with-pic --prefix=$SNAPCRAFT_PART_INSTALL
+    install: |
+      cd build_unix
+      make install
     prime:
       - -* # we don't need the compiled files in the final snap
   bitcoin-qt:
@@ -47,6 +50,7 @@ parts:
       - libzmq3-dev
       - libminiupnpc-dev
       - libqrencode-dev
-    build: |
-      ./autogen.sh && ./configure LDFLAGS='-L$SNAPCRAFT_STAGE/usr/local/BerkeleyDB.4.8/lib/' CPPFLAGS='-I$SNAPCRAFT_STAGE/usr/local/BerkeleyDB.4.8/include/' --with-gui --enable-hardening --with-boost-libdir=/usr/lib/x86_64-linux-gnu/ && make && make install DESTDIR=$SNAPCRAFT_PART_INSTALL 
+    configflags:
+       - --with-gui
+       - --enable-hardening
 
