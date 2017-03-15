@@ -1,5 +1,5 @@
 name: bitcoin-qt
-version: '1.0.0.1-git-5a0fd1a'
+version: '1.0.1.1-git-21e45cb'
 summary: Bitcoin Unlimited - The Only Bitcoin Client That Gives You Complete Freedom!
 description: |
   Bitcoin is a free open source peer-to-peer electronic cash system that is completely decentralized, without the need for a central server or trusted parties. Users hold the crypto keys to their own money and transact directly with each other, with the help of a P2P network to check for double-spending.
@@ -9,7 +9,7 @@ confinement: strict
 
 apps:
   bitcoin-qt:
-    command: desktop-launch $SNAP/usr/local/bin/bitcoin-qt
+    command: desktop-launch bitcoin-qt
     plugs: [network, network-bind, home, unity7]
 
 parts:
@@ -35,7 +35,7 @@ parts:
     plugin: autotools
     source: git://github.com/BitcoinUnlimited/BitcoinUnlimited.git
     source-type: git
-    source-commit: 5a0fd1a2a77b1b4411aa6c8fbc1132cda225e359
+    source-commit: 21e45cb385d8f60e9ab99b548ab6815d6c7129aa
     build-packages:
       - g++
       - libboost-dev
