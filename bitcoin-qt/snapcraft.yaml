@@ -30,7 +30,7 @@ parts:
     prime:
       - -* # we don't need the compiled files in the final snap
   bitcoin-qt:
-    after: [libdb4.8, desktop-qt4]
+    after: [libdb4.8, desktop-qt5]
     build-packages: [libdb4.8]
     plugin: autotools
     source: git://github.com/BitcoinUnlimited/BitcoinUnlimited.git
